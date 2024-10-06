@@ -1,8 +1,8 @@
 import React from "react";
 import "./Toast.css";
 
-const ToastButton = ({ message }) => {
-  return <button className="toast__button">DISMISS!</button>;
+const ToastButton = ({ button }) => {
+  return <button className="toast__button">{button.btnTitle}</button>;
 };
 
 export default ToastButton;
