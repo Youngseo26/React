@@ -3,24 +3,36 @@ import React, { useState } from "react";
 import "./PaymentForm.css";
 
 const PaymentForm = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [today, setToday] = useState(null);
+  //여러 개의 state 한번에 관리하기
+  const [objectState, setObjectState] = useState({
+    name: "",
+    price: 0,
+    today: null,
+  });
+  // const [name, setName] = useState("");
+  // const [price, setPrice] = useState(0);
+  // const [today, setToday] = useState(null);
 
   const inputTypeTextChangeHandler = (event) => {
-    setName(event.target.value);
+    setObjectState((prevState) => ({ ...prevState, name: event.target.value }));
   };
   const inputTypeNumberChangeHandler = (event) => {
-    setPrice(event.target.value);
+    setObjectState((prevState) => ({
+      ...prevState,
+      price: event.target.value,
+    }));
   };
   const inputTypeDateChangeHandler = (event) => {
-    setToday(event.target.value);
+    setObjectState((prevState) => ({
+      ...prevState,
+      today: event.target.value,
+    }));
   };
 
   const buttonSubmitHandler = () => {
-    console.log("name", name);
-    console.log("price", price);
-    console.log("today", today);
+    console.log("name", objectState.name);
+    console.log("price", objectState.price);
+    console.log("today", objectState.today);
   };
   return (
     <form>
@@ -29,7 +41,7 @@ const PaymentForm = () => {
           <label>이름</label>
           <input
             type="text"
-            value={name}
+            value={objectState.name}
             onChange={inputTypeTextChangeHandler}
           />
         </div>
@@ -39,7 +51,7 @@ const PaymentForm = () => {
             type="number"
             min="0.01"
             step="0.01"
-            value={price}
+            value={objectState.price}
             onChange={inputTypeNumberChangeHandler}
           />
         </div>
@@ -49,7 +61,7 @@ const PaymentForm = () => {
             type="date"
             min="1990-01-01"
             max="2024-12-31"
-            value={today}
+            value={objectState.today}
             onChange={inputTypeDateChangeHandler}
           />
         </div>
