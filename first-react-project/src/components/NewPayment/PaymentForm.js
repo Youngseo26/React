@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./PaymentForm.css";
 
-const PaymentForm = () => {
+const PaymentForm = ({ getPaymentFormData }) => {
   //여러 개의 state 한번에 관리하기
   const [objectState, setObjectState] = useState({
     name: "",
@@ -31,7 +31,8 @@ const PaymentForm = () => {
 
   const buttonSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(objectState);
+    getPaymentFormData(objectState); //부모컴포넌트에서 함수호출
+    //console.log(objectState);
     //초기화
     setObjectState({
       name: "",
@@ -40,41 +41,43 @@ const PaymentForm = () => {
     });
   };
   return (
-    <form onSubmit={buttonSubmitHandler}>
-      <div className="new-payment__controls">
-        <div className="new-payment__control">
-          <label>이름</label>
-          <input
-            type="text"
-            value={objectState.name}
-            onChange={inputTypeTextChangeHandler}
-          />
+    <div className="new-payment">
+      <form onSubmit={buttonSubmitHandler}>
+        <div className="new-payment__controls">
+          <div className="new-payment__control">
+            <label>이름</label>
+            <input
+              type="text"
+              onChange={inputTypeTextChangeHandler}
+              value={objectState.name}
+            />
+          </div>
+          <div className="new-payment__control">
+            <label>금액</label>
+            <input
+              type="number"
+              min="0.01"
+              step="0.01"
+              onChange={inputTypeNumberChangeHandler}
+              value={objectState.price}
+            />
+          </div>
+          <div className="new-payment__control">
+            <label>날짜</label>
+            <input
+              type="date"
+              min="1990-01-01"
+              max="2024-12-31"
+              onChange={inputTypeDateChangeHandler}
+              value={objectState.today}
+            />
+          </div>
         </div>
-        <div className="new-payment__control">
-          <label>금액</label>
-          <input
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={objectState.price}
-            onChange={inputTypeNumberChangeHandler}
-          />
+        <div className="new-payment__actions">
+          <button type="submit">결제 추가</button>
         </div>
-        <div className="new-payment__control">
-          <label>날짜</label>
-          <input
-            type="date"
-            min="1990-01-01"
-            max="2024-12-31"
-            value={objectState.today}
-            onChange={inputTypeDateChangeHandler}
-          />
-        </div>
-      </div>
-      <div className="new-payment__actions">
-        <button type="submit">결제 추가</button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

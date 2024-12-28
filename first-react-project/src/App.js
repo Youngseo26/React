@@ -1,30 +1,44 @@
+import React, { useState } from "react";
 import "./App.css";
-import NewPayment from "./components/NewPayment/NewPayment";
+//import NewPayment from "./components/NewPayment/NewPayment";
 //import Toast from "./components/Toast";
+//import AlexaImage from "./images/alexa.png";
+//import SiriImage from "./images/siri.png";
+import PaymentForm from "./components/NewPayment/PaymentForm";
+import Expenses from "./components/Payments/Expenses";
 
 function App() {
-  // const messageArray = [
-  //   {
-  //     title: "success",
-  //     text: "Right On! Your account has been updated.",
-  //   },
-  //   {
-  //     title: "warning",
-  //     text: "Hmmm. Something doesn't look right.",
-  //   },
-  //   {
-  //     title: "error",
-  //     text: "Un oh! Something went terribly wrong!",
-  //   },
-  // ];
+  const [expenses, setExpenses] = useState([
+    {
+      id: "e1",
+      title: "수건",
+      amount: 12.33,
+      date: new Date(2025, 8, 14),
+    },
+  ]);
+  const [parentObjectState, setParentObjectState] = useState({
+    name: "",
+    price: 0,
+    today: new Date(),
+  });
+
+  const getPaymentFormData = (data) => {
+    console.log(data);
+    setExpenses([
+      {
+        id: Math.random().toString(),
+        title: data.name,
+        amount: data.price,
+        date: new Date(data.today),
+      },
+    ]);
+  };
 
   return (
-    // <div className="wrapper">
-    //   {messageArray.map((message) => (
-    //     <Toast message={message} />
-    //   ))}
-    // </div>
-    <NewPayment />
+    <>
+      <PaymentForm getPaymentFormData={getPaymentFormData} />
+      <Expenses items={expenses} />
+    </>
   );
 }
 
