@@ -13,7 +13,7 @@ const ExpenseItem = (props) => {
         <div className="expense-item__price">${props.amount}</div>
         <button
           className="expense-item__price"
-          onClick={() => props.deleteExpenseItem(props.index)}
+          onClick={() => props.deleteExpenseItem(props.id)}
         >
           Delete
         </button>

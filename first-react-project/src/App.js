@@ -36,16 +36,16 @@ function App() {
     ]);
   };
 
-  const deleteExpenseItem = (index) => {
-    console.log(index);
+  const deleteExpenseItem = (id) => {
+    console.log(id);
     //1. filter
-    // const newFilteredArray = expenses.filter((item) => item.id !== id); //expenses에서 선택한 id와 다른 것들만 모아줘
-    // setExpenses(newFilteredArray);
+    const newFilteredArray = expenses.filter((item) => item.id !== id); //expenses에서 선택한 id와 다른 것들만 모아줘
+    setExpenses(newFilteredArray);
 
     //2. slice //index기준으로
-    const beforeArray = expenses.slice(0, index);
-    const afterArray = expenses.slice(index + 1);
-    setExpenses([...beforeArray, ...afterArray]);
+    // const beforeArray = expenses.slice(0, index);
+    // const afterArray = expenses.slice(index + 1);
+    // setExpenses([...beforeArray, ...afterArray]);
   };
 
   return (
