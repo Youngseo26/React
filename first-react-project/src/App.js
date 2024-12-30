@@ -3,7 +3,7 @@ import "./App.css";
 //import NewPayment from "./components/NewPayment/NewPayment";
 //import Toast from "./components/Toast";
 //import AlexaImage from "./images/alexa.png";
-//import SiriImage from "./images/siri.png";
+// import SiriImage from "./images/siri.png";
 import PaymentForm from "./components/NewPayment/PaymentForm";
 import Expenses from "./components/Payments/Expenses";
 
@@ -23,7 +23,8 @@ function App() {
   });
 
   const getPaymentFormData = (data) => {
-    console.log(data);
+    console.log("data", data);
+    console.log("expenses", expenses);
     setExpenses([
       {
         id: Math.random().toString(),
@@ -31,13 +32,26 @@ function App() {
         amount: data.price,
         date: new Date(data.today),
       },
+      ...expenses,
     ]);
+  };
+
+  const deleteExpenseItem = (index) => {
+    console.log(index);
+    //1. filter
+    // const newFilteredArray = expenses.filter((item) => item.id !== id); //expenses에서 선택한 id와 다른 것들만 모아줘
+    // setExpenses(newFilteredArray);
+
+    //2. slice //index기준으로
+    const beforeArray = expenses.slice(0, index);
+    const afterArray = expenses.slice(index + 1);
+    setExpenses([...beforeArray, ...afterArray]);
   };
 
   return (
     <>
       <PaymentForm getPaymentFormData={getPaymentFormData} />
-      <Expenses items={expenses} />
+      <Expenses items={expenses} deleteExpenseItem={deleteExpenseItem} />
     </>
   );
 }
