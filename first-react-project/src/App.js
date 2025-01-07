@@ -1,15 +1,62 @@
 import React from "react";
-import Dropdown from "./components/Dropdown";
+import SortableTable from "./components/SortableTabel";
 
 function App() {
-  const options = [
-    { label: "빨강", value: "red" },
-    { label: "녹색", value: "green" },
-    { label: "파랑", value: "blue" },
+  const data = [
+    { name: "오렌지", color: "bg-orange-500", score: 5 },
+    { name: "사과", color: "bg-red-500", score: 3 },
+    { name: "바나나", color: "bg-yellow-500", score: 1 },
+    { name: "라임", color: "bg-green-500", score: 4 },
+    { name: "체리", color: "bg-red-700", score: 2.5 },
   ];
-  return <Dropdown options={options} />;
+
+  const config = [
+    {
+      label: "이름",
+      render: (fruit) => fruit.name,
+      sortValue: (fruit) => fruit.name,
+    },
+    {
+      label: "색상",
+      render: (fruit) => <div className={`p-3 m-2 ${fruit.color}`} />,
+    },
+    {
+      label: "점수",
+      render: (fruit) => fruit.score,
+      sortValue: (fruit) => fruit.score,
+    },
+    {
+      label: "점수의 제곱",
+      render: (fruit) => fruit.score ** 2,
+      sortValue: (fruit) => fruit.score ** 2,
+    },
+  ];
+
+  const keyFn = (fruit) => {
+    return fruit.name;
+  };
+
+  return (
+    <div>
+      <SortableTable data={data} config={config} keyFn={keyFn} />
+    </div>
+  );
 }
+
 export default App;
+
+// import React from "react";
+// import Dropdown from "./components/Dropdown";
+
+// function App() {
+//   const options = [
+//     { label: "빨강", value: "red" },
+//     { label: "녹색", value: "green" },
+//     { label: "파랑", value: "blue" },
+//   ];
+//   return <Dropdown options={options} />;
+// }
+// export default App;
 // import React, { useState } from "react";
 
 // import CourseGoalList from "./components/CourseGoals/CourseGoalList/CourseGoalList";
