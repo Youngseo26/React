@@ -1,49 +1,106 @@
-import React from "react";
-import SortableTable from "./components/SortableTabel";
+import React, { useState } from "react";
+
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
+import MainHeader from "./components/MainHeader/MainHeader";
 
 function App() {
-  const data = [
-    { name: "오렌지", color: "bg-orange-500", score: 5 },
-    { name: "사과", color: "bg-red-500", score: 3 },
-    { name: "바나나", color: "bg-yellow-500", score: 1 },
-    { name: "라임", color: "bg-green-500", score: 4 },
-    { name: "체리", color: "bg-red-700", score: 2.5 },
-  ];
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const config = [
-    {
-      label: "이름",
-      render: (fruit) => fruit.name,
-      sortValue: (fruit) => fruit.name,
-    },
-    {
-      label: "색상",
-      render: (fruit) => <div className={`p-3 m-2 ${fruit.color}`} />,
-    },
-    {
-      label: "점수",
-      render: (fruit) => fruit.score,
-      sortValue: (fruit) => fruit.score,
-    },
-    {
-      label: "점수의 제곱",
-      render: (fruit) => fruit.score ** 2,
-      sortValue: (fruit) => fruit.score ** 2,
-    },
-  ];
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    setIsLoggedIn(true);
+  };
 
-  const keyFn = (fruit) => {
-    return fruit.name;
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
   };
 
   return (
-    <div>
-      <SortableTable data={data} config={config} keyFn={keyFn} />
-    </div>
+    <React.Fragment>
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
+    </React.Fragment>
   );
 }
 
 export default App;
+// import React, { useState } from "react";
+
+// import AddUser from "./components/Users/AddUser";
+// import UsersList from "./components/Users/UserList";
+
+// function App() {
+//   const [usersList, setUsersList] = useState([]);
+
+//   const addUserHandler = (uName, uAge) => {
+//     setUsersList((prevUsersList) => {
+//       return [
+//         ...prevUsersList,
+//         { name: uName, age: uAge, id: Math.random().toString() },
+//       ];
+//     });
+//   };
+
+//   return (
+//     <div>
+//       <AddUser onAddUser={addUserHandler} />
+//       <UsersList users={usersList} />
+//     </div>
+//   );
+// }
+
+// export default App;
+// import React from "react";
+// import SortableTable from "./components/SortableTabel";
+
+// function App() {
+//   const data = [
+//     { name: "오렌지", color: "bg-orange-500", score: 5 },
+//     { name: "사과", color: "bg-red-500", score: 3 },
+//     { name: "바나나", color: "bg-yellow-500", score: 1 },
+//     { name: "라임", color: "bg-green-500", score: 4 },
+//     { name: "체리", color: "bg-red-700", score: 2.5 },
+//   ];
+
+//   const config = [
+//     {
+//       label: "이름",
+//       render: (fruit) => fruit.name,
+//       sortValue: (fruit) => fruit.name,
+//     },
+//     {
+//       label: "색상",
+//       render: (fruit) => <div className={`p-3 m-2 ${fruit.color}`} />,
+//     },
+//     {
+//       label: "점수",
+//       render: (fruit) => fruit.score,
+//       sortValue: (fruit) => fruit.score,
+//     },
+//     {
+//       label: "점수의 제곱",
+//       render: (fruit) => fruit.score ** 2,
+//       sortValue: (fruit) => fruit.score ** 2,
+//     },
+//   ];
+
+//   const keyFn = (fruit) => {
+//     return fruit.name;
+//   };
+
+//   return (
+//     <div>
+//       <SortableTable data={data} config={config} keyFn={keyFn} />
+//     </div>
+//   );
+// }
+
+// export default App;
 
 // import React from "react";
 // import Dropdown from "./components/Dropdown";
