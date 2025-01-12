@@ -1,41 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import MainHeader from "./components/MainHeader/MainHeader";
+import AuthContext from "./context/AuthContext";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    //만약 로그인이 되어있다면 isLoggedIn = true
-    const storedUserLoggedInInfo = localStorage.getItem("isLoggedIn");
-    console.log(storedUserLoggedInInfo);
-    if (storedUserLoggedInInfo === "1") setIsLoggedIn(true);
-    //만약 로그인이 되어있지않다면 isLoggedIn = false
-    else setIsLoggedIn(false);
-  }, []);
-
-  const loginHandler = (email, password) => {
-    // We should of course check email and password
-    // But it's just a dummy/ demo anyways
-    localStorage.setItem("isLoggedIn", "1");
-    setIsLoggedIn(true);
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
-
+  const context = useContext(AuthContext);
   return (
-    <React.Fragment>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+    <>
+      <MainHeader />
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {!context.isLoggedIn && <Login />}
+        {context.isLoggedIn && <Home />}
       </main>
-    </React.Fragment>
+    </>
   );
 }
 
