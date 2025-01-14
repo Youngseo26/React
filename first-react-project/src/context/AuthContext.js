@@ -12,7 +12,7 @@ export const AuthContextProvider = (props) => {
   useEffect(() => {
     //만약 로그인이 되어있다면 isLoggedIn = true
     const storedUserLoggedInInfo = localStorage.getItem("isLoggedIn");
-    console.log(storedUserLoggedInInfo);
+    //console.log(storedUserLoggedInInfo);
     if (storedUserLoggedInInfo === "1") setIsLoggedIn(true);
     //만약 로그인이 되어있지않다면 isLoggedIn = false
     else setIsLoggedIn(false);

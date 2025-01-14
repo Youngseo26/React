@@ -1,6 +1,6 @@
 import React, {
+  useCallback,
   useContext,
-  useEffect,
   useReducer,
   useRef,
   useState,
@@ -11,6 +11,7 @@ import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 import AuthContext from "../../context/AuthContext";
 import Input from "../UI/Input/Input";
+import DummyText from "../UI/DummyText";
 
 const emailReducer = (state, action) => {
   //값이 바뀌는 경우, setEnteredEmail
@@ -76,30 +77,30 @@ const Login = (props) => {
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  useEffect(() => {
-    console.log("EFFECT RUNNING");
+  // useEffect(() => {
+  //   console.log("EFFECT RUNNING");
 
-    return () => {
-      console.log("EFFECT CLEANUP");
-    };
-  }, []);
+  //   return () => {
+  //     console.log("EFFECT CLEANUP");
+  //   };
+  // }, []);
 
   //const { isValid: emailIsValid } = emailState;
   // const { isValid: passwordIsValid } = passwordState;
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      console.log("check validity!");
-      // setFormIsValid(
-      //   emailState.value.trim().length > 6 && passwordState.value.includes("@")
-      // );
-    }, 500);
+  // useEffect(() => {
+  //   const identifier = setTimeout(() => {
+  //     console.log("check validity!");
+  //     // setFormIsValid(
+  //     //   emailState.value.trim().length > 6 && passwordState.value.includes("@")
+  //     // );
+  //   }, 500);
 
-    return () => {
-      console.log("clean up");
-      clearTimeout(identifier);
-    };
-  }, [emailState.value, passwordState.value]);
+  //   return () => {
+  //     console.log("clean up");
+  //     clearTimeout(identifier);
+  //   };
+  // }, [emailState.value, passwordState.value]);
 
   const emailChangeHandler = (event) => {
     //setEnteredEmail(event.target.value);
@@ -138,34 +139,43 @@ const Login = (props) => {
     }
   };
 
+  console.log("Parent Component rendered!");
+  const foo = useCallback(() => {}, []);
+  const [text, setText] = useState("youngseo");
   return (
-    <Card className={classes.login}>
-      <form onSubmit={submitHandler}>
-        <Input
-          isValid={emailState.isValid}
-          label={"이메일"}
-          type={"email"}
-          value={emailState.value}
-          onChange={emailChangeHandler}
-          onBlur={validateEmailHandler}
-          ref={emailInputRef}
-        />
-        <Input
-          isValid={passwordState.isValid}
-          label={"password"}
-          type={"password"}
-          value={passwordState.value}
-          onChange={passwordChangeHandler}
-          onBlur={validatePasswordHandler}
-          ref={passwordInputRef}
-        />
-        <div className={classes.actions}>
-          <Button type="submit" className={classes.btn}>
-            로그인
-          </Button>
-        </div>
-      </form>
-    </Card>
+    <>
+      <Card className={classes.login}>
+        <form onSubmit={submitHandler}>
+          <Input
+            isValid={emailState.isValid}
+            label={"이메일"}
+            type={"email"}
+            value={emailState.value}
+            onChange={emailChangeHandler}
+            onBlur={validateEmailHandler}
+            ref={emailInputRef}
+          />
+          <Input
+            isValid={passwordState.isValid}
+            label={"password"}
+            type={"password"}
+            value={passwordState.value}
+            onChange={passwordChangeHandler}
+            onBlur={validatePasswordHandler}
+            ref={passwordInputRef}
+          />
+          <div className={classes.actions}>
+            <Button type="submit" className={classes.btn}>
+              로그인
+            </Button>
+          </div>
+        </form>
+      </Card>
+      <DummyText func={foo} />
+      <button onClick={() => setText("Myounggon")}>
+        Component re-evaluating
+      </button>
+    </>
   );
 };
 
