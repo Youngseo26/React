@@ -3,13 +3,21 @@ import NewsItem from "../NewsItem";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const getNewsList = async () => {
-    const response = await fetch(
-      "https://newsapi.org/v2/everything?q=tesla&from=2024-12-15&sortBy=publishedAt&apiKey=0f9a604e9f4342949b8b30e54c90fa1f"
-    );
-    const data = await response.json();
-    console.log(data);
-    setNews(data.articles);
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        "https://newsapi.org/v2/everything?q=tesla&from=2024-12-15&sortBy=publishedAt&apiKey=?"
+      ); //? -> api key값
+      const data = await response.json();
+      console.log(data);
+      setNews(data.articles);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   getNewsList();
@@ -66,9 +74,9 @@ const NewsList = () => {
   ];
   return (
     <div>
-      {news.map((news) => (
-        <NewsItem {...news} />
-      ))}
+      {!isLoading &&
+        news.map((news, index) => <NewsItem key={`news-${index}`} {...news} />)}
+      {isLoading && <p>로딩 중 입니다.</p>}
     </div>
   );
 };
