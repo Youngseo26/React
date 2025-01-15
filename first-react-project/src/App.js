@@ -1,8 +1,25 @@
 import React from "react";
-import NewsList from "./components/NewsList";
+//import NewsList from "./components/NewsList";
 
 function App() {
-  return <NewsList />;
+  const postRequestHandler = async () => {
+    await fetch(
+      "https://reacttest-cae14-default-rtdb.firebaseio.com/test.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          Key1: "value1",
+          key2: "value2",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+
+  return <button onClick={postRequestHandler}>Post</button>;
+  // <NewsList />;
 }
 
 export default App;
