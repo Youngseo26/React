@@ -1,28 +1,42 @@
 import React from "react";
-//import NewsList from "./components/NewsList";
+import ForwardCounter from "./components/ForwardCounter";
+import BackwardCounter from "./components/BackwardCounter";
 
 function App() {
-  const postRequestHandler = async () => {
-    await fetch(
-      "https://reacttest-cae14-default-rtdb.firebaseio.com/test.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          Key1: "value1",
-          key2: "value2",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  };
-
-  return <button onClick={postRequestHandler}>Post</button>;
-  // <NewsList />;
+  return (
+    <>
+      <ForwardCounter />
+      <BackwardCounter />
+    </>
+  );
 }
 
 export default App;
+// import React from "react";
+// //import NewsList from "./components/NewsList";
+
+// function App() {
+//   const postRequestHandler = async () => {
+//     await fetch(
+//       "https://reacttest-cae14-default-rtdb.firebaseio.com/test.json",
+//       {
+//         method: "POST",
+//         body: JSON.stringify({
+//           Key1: "value1",
+//           key2: "value2",
+//         }),
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//   };
+
+//   return <button onClick={postRequestHandler}>Post</button>;
+//   // <NewsList />;
+// }
+
+// export default App;
 // import React, { useContext } from "react";
 
 // import Login from "./components/Login/Login";

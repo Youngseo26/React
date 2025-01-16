@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -13,8 +13,8 @@ body {
 
 main {
   margin-top: 6rem;
-}
-/* @tailwind base;
+} */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -33,4 +33,4 @@ body {
 
 main {
   margin-top: 6rem;
-} */
+}
