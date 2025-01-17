@@ -1,17 +1,67 @@
-import React from "react";
-import ForwardCounter from "./components/ForwardCounter";
-import BackwardCounter from "./components/BackwardCounter";
+import React, { useEffect, useState } from "react";
+
+import Tasks from "./components/Tasks/Tasks";
+import NewTask from "./components/NewTask/NewTask";
+import useHttp from "./hooks/useHttp";
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+
+  const transformTasks = (taskObj) => {
+    const loadedTasks = [];
+
+    for (const taskKey in taskObj) {
+      loadedTasks.push({ id: taskKey, text: taskObj[taskKey].text });
+    }
+
+    setTasks(loadedTasks);
+  };
+
+  const {
+    isLoading,
+    error,
+    sendRequest: fetchTasks,
+  } = useHttp(
+    { url: "https://reacttest-cae14-default-rtdb.firebaseio.com/test.json" },
+    transformTasks
+  );
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const taskAddHandler = (task) => {
+    setTasks((prevTasks) => prevTasks.concat(task));
+  };
+
   return (
-    <>
-      <ForwardCounter />
-      <BackwardCounter />
-    </>
+    <React.Fragment>
+      <NewTask onAddTask={taskAddHandler} />
+      <Tasks
+        items={tasks}
+        loading={isLoading}
+        error={error}
+        onFetch={fetchTasks}
+      />
+    </React.Fragment>
   );
 }
 
 export default App;
+// import React from "react";
+// import ForwardCounter from "./components/ForwardCounter";
+// import BackwardCounter from "./components/BackwardCounter";
+
+// function App() {
+//   return (
+//     <>
+//       <ForwardCounter />
+//       <BackwardCounter />
+//     </>
+//   );
+// }
+
+// export default App;
 // import React from "react";
 // //import NewsList from "./components/NewsList";
 
