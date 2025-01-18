@@ -1,49 +1,62 @@
-import React, { useCallback, useEffect, useState } from "react";
-
-import Tasks from "./components/Tasks/Tasks";
-import NewTask from "./components/NewTask/NewTask";
-import useHttp from "./hooks/useHttp";
+import SimpleInput from "./components/SimpleInput";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-
-  const transformTasks = useCallback((taskObj) => {
-    const loadedTasks = [];
-
-    for (const taskKey in taskObj) {
-      loadedTasks.push({ id: taskKey, text: taskObj[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-  }, []);
-
-  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
-
-  useEffect(() => {
-    fetchTasks(
-      { url: "https://reacttest-cae14-default-rtdb.firebaseio.com/test.json" },
-      transformTasks
-    );
-  }, [fetchTasks]);
-
-  const taskAddHandler = (task) => {
-    setTasks((prevTasks) => prevTasks.concat(task));
-  };
-
   return (
-    <React.Fragment>
-      <NewTask onAddTask={taskAddHandler} />
-      <Tasks
-        items={tasks}
-        loading={isLoading}
-        error={error}
-        onFetch={fetchTasks}
-      />
-    </React.Fragment>
+    <div className="app">
+      <SimpleInput />
+    </div>
   );
 }
 
 export default App;
+
+// import React, { useCallback, useEffect, useState } from "react";
+
+// import Tasks from "./components/Tasks/Tasks";
+// import NewTask from "./components/NewTask/NewTask";
+// import useHttp from "./hooks/useHttp";
+
+// function App() {
+//   const [tasks, setTasks] = useState([]);
+
+//   const transformTasks = useCallback((taskObj) => {
+//     const loadedTasks = [];
+
+//     for (const taskKey in taskObj) {
+//       loadedTasks.push({ id: taskKey, text: taskObj[taskKey].text });
+//     }
+
+//     setTasks(loadedTasks);
+//   }, []);
+
+//   const { isLoading, error, sendRequest: fetchTasks } = useHttp();
+
+//   useEffect(() => {
+//     fetchTasks(
+//       { url: "https://reacttest-cae14-default-rtdb.firebaseio.com/test.json" },
+//       transformTasks
+//     );
+//   }, [fetchTasks]);
+
+//   const taskAddHandler = (task) => {
+//     setTasks((prevTasks) => prevTasks.concat(task));
+//   };
+
+//   return (
+//     <React.Fragment>
+//       <NewTask onAddTask={taskAddHandler} />
+//       <Tasks
+//         items={tasks}
+//         loading={isLoading}
+//         error={error}
+//         onFetch={fetchTasks}
+//       />
+//     </React.Fragment>
+//   );
+// }
+
+// export default App;
+
 // import React from "react";
 // import ForwardCounter from "./components/ForwardCounter";
 // import BackwardCounter from "./components/BackwardCounter";
@@ -83,6 +96,7 @@ export default App;
 // }
 
 // export default App;
+
 // import React, { useContext } from "react";
 
 // import Login from "./components/Login/Login";
@@ -131,6 +145,7 @@ export default App;
 // }
 
 // export default App;
+
 // import React from "react";
 // import SortableTable from "./components/SortableTabel";
 
