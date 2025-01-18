@@ -23,6 +23,20 @@ const SimpleInput = (props) => {
 
   const inputChangeHandler = (event) => {
     setEnteredName(event.target.value);
+    console.log(event.target.value);
+    setEnteredNameIsTouched(true);
+    if (event.target.value.trim() === "") {
+      setEnteredNameIsTouched(false);
+    } else setEnteredNameIsValid(true);
+  };
+
+  const nameInputBlurHandler = (event) => {
+    console.log("event onBlur!");
+    setEnteredNameIsTouched(true);
+    if (enteredName.trim() === "") {
+      setEnteredNameIsValid(false);
+      return;
+    }
   };
   //에러 메세지 보여주는 경우, true -> 메세지 노출
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
@@ -40,6 +54,7 @@ const SimpleInput = (props) => {
           ref={nameInputRef}
           value={enteredName}
           onChange={inputChangeHandler}
+          onBlur={nameInputBlurHandler}
         />
         {nameInputIsInvalid && (
           <p className="error-text">빈 값이 아니어야 합니다.</p>
