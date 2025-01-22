@@ -1,19 +1,20 @@
 import classes from "./Counter.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { counterActions } from "../store";
 
 const Counter = () => {
   const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" });
+    dispatch(counterActions.toggleCounter());
   };
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
   };
 
   const increase10Handler = () => {
-    dispatch({ type: "increase", amount: 10 });
+    dispatch(counterActions.increase(10));
   };
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
   const counter = useSelector((state) => state.counter);
@@ -24,10 +25,10 @@ const Counter = () => {
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
       {showCounter && <div className={classes.value}>{counter}</div>}
-      <button onClick={toggleCounterHandler}>토글 카운터</button>
       <button onClick={incrementHandler}>숫자 증가</button>
       <button onClick={increase10Handler}>숫자 10 증가</button>
       <button onClick={decrementHandler}>숫자 감소</button>
+      <button onClick={toggleCounterHandler}>토글 카운터</button>
     </main>
   );
 };
